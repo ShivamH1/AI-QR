@@ -18,7 +18,7 @@ export async function generateBackground(prompt: string): Promise<Buffer> {
         num_inference_steps: 4,
       },
     },
-    { outputType: "blob" }
+    { outputType: "blob" },
   );
 
   return Buffer.from(await blob.arrayBuffer());

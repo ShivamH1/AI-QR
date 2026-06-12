@@ -1,24 +1,23 @@
 import sharp from "sharp";
 import { generateQRBuffer } from "./qrcode";
-import { generateBackground } from "./hf";
 
 /**
  * Generates a beautiful composite QR code where the AI art is visible through
  * both dark and light QR modules. Instead of overlaying an opaque QR on art,
  * this creates a dual-tone artistic blend:
- * 
+ *
  * - Dark/data modules → heavily darkened version of the AI art
  * - Light/empty modules → brightened version of the AI art
- * 
+ *
  * The contrast between the two tones ensures scannability while keeping
  * the artwork visible throughout. Uses H-level error correction (~30% tolerance).
  */
 export async function generateCompositeQR(
   url: string,
-  artworkBuffer: Buffer
+  artworkBuffer: Buffer,
 ): Promise<Buffer> {
   const SIZE = 512;
-  
+
   const qrRawBuffer = await generateQRBuffer(url, SIZE);
 
   // 1. Resize & normalize the AI art to target size as PNG for pipeline compatibility
@@ -67,7 +66,7 @@ export async function generateCompositeQR(
     rgbaBuffer[i * 4 + 0] = lightRaw.data[i * 3 + 0]; // R
     rgbaBuffer[i * 4 + 1] = lightRaw.data[i * 3 + 1]; // G
     rgbaBuffer[i * 4 + 2] = lightRaw.data[i * 3 + 2]; // B
-    rgbaBuffer[i * 4 + 3] = qrMask[i];                  // A from QR mask
+    rgbaBuffer[i * 4 + 3] = qrMask[i]; // A from QR mask
   }
 
   // 7. Final composite: darkArt base + masked lightArt on top

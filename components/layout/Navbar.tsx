@@ -44,8 +44,34 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform shadow-lg shadow-brand-purple/20">
-            Q
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-purple to-brand-cyan flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-brand-purple/20">
+            <svg
+              className="w-5 h-5 text-white"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {/* Top Left Finder Pattern */}
+              <rect x="3" y="3" width="6" height="6" rx="1.5" />
+              <rect x="5" y="5" width="2" height="2" fill="currentColor" />
+              
+              {/* Bottom Left Finder Pattern */}
+              <rect x="3" y="15" width="6" height="6" rx="1.5" />
+              <rect x="5" y="17" width="2" height="2" fill="currentColor" />
+              
+              {/* Top Right Finder Pattern */}
+              <rect x="15" y="3" width="6" height="6" rx="1.5" />
+              <rect x="17" y="5" width="2" height="2" fill="currentColor" />
+              
+              {/* Small styling/pixels representing AI blending */}
+              <rect x="15" y="15" width="2" height="2" rx="0.5" fill="currentColor" />
+              <rect x="19" y="19" width="2" height="2" rx="0.5" fill="currentColor" />
+              <rect x="15" y="19" width="2" height="2" rx="0.5" fill="currentColor" />
+              <rect x="19" y="15" width="2" height="2" rx="0.5" fill="currentColor" />
+            </svg>
           </div>
           <span className="font-heading font-bold text-xl tracking-tight gradient-text">
             AI QR
@@ -56,26 +82,11 @@ export default function Navbar() {
           <Link
             href="/"
             className={`text-sm font-medium transition-colors relative py-1 ${
-              pathname === "/"
-                ? "text-white"
-                : "text-gray-400 hover:text-white"
+              pathname === "/" ? "text-white" : "text-gray-400 hover:text-white"
             }`}
           >
             Generate
             {pathname === "/" && (
-              <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-brand-purple to-brand-cyan rounded-full" />
-            )}
-          </Link>
-          <Link
-            href="/scan"
-            className={`text-sm font-medium transition-colors relative py-1 ${
-              pathname === "/scan"
-                ? "text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            Scanner
-            {pathname === "/scan" && (
               <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-brand-purple to-brand-cyan rounded-full" />
             )}
           </Link>

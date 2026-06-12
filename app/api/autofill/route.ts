@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     if (!parsed.success) {
       return Response.json(
         { error: parsed.error.flatten().fieldErrors },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       .pipe(new StringOutputParser());
 
     const responseText = await chain.invoke({ text });
-    
+
     // Clean potential markdown tags if the model added them anyway
     const cleanJson = responseText
       .replace(/```json/g, "")
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
     console.error("[/api/autofill]", error);
     return Response.json(
       { error: "AI parsing failed. Please fill the fields manually." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

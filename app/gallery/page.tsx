@@ -29,7 +29,9 @@ export default function GalleryPage() {
       {!loaded ? null : entries.length === 0 ? (
         <div className="glass rounded-2xl p-16 text-center">
           <div className="text-6xl mb-4">✦</div>
-          <p className="text-gray-400 text-lg mb-6">No QR codes generated yet.</p>
+          <p className="text-gray-400 text-lg mb-6">
+            No QR codes generated yet.
+          </p>
           <Link
             href="/"
             className="inline-block bg-brand-purple hover:bg-purple-600 text-white font-semibold px-8 py-3 rounded-xl transition-colors"

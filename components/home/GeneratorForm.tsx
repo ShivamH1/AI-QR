@@ -10,28 +10,28 @@ import LoadingSpinner from "../ui/LoadingSpinner";
 
 const STYLE_PRESETS = [
   {
-    name: "Neon Cyberpunk",
+    name: "Glassmorphism 3D",
     prompt:
-      "neon cyberpunk city at night, futuristic, glowing lines, synthwave, 8k resolution",
-    icon: "🌃",
+      "abstract glassmorphism design, translucent floating shapes, pastel gradient background, refractive glass, high quality 3d render",
+    icon: "🔮",
   },
   {
-    name: "Enchanted Forest",
+    name: "Studio Ghibli Art",
     prompt:
-      "enchanted forest with glowing mushrooms, mystical atmosphere, soft bioluminescent lighting, 8k",
-    icon: "🍄",
+      "beautiful Studio Ghibli style painting, scenic landscape, soft clouds, hand-drawn digital watercolor, nostalgic aesthetic",
+    icon: "🍃",
   },
   {
-    name: "Watercolor Minimalist",
+    name: "Papercraft & Origami",
     prompt:
-      "watercolor painting, soft pastel colors, clean white background, abstract shapes, minimalist art, highly detailed",
-    icon: "🎨",
+      "intricate papercraft art, layered colored paper, 3D origami, shadow box art, textured paper, cinematic lighting",
+    icon: "📄",
   },
   {
-    name: "Holographic 3D",
+    name: "Isometric Diorama",
     prompt:
-      "holographic 3D render, abstract glassy shapes, iridescent gradients, dark tech background, octane render",
-    icon: "💎",
+      "miniature isometric 3D low poly diorama, colorful floating island, toy-like, tilt-shift, soft ambient lighting, high detail",
+    icon: "🏝️",
   },
   {
     name: "Claymation",
@@ -800,14 +800,34 @@ export default function GeneratorForm() {
                       />
                       <div className="space-y-2 mb-5">
                         <div className="flex items-center gap-2 text-xs">
-                          <span className={cardTheme === "light" ? "text-orange-700" : "text-amber-400"}>📍</span>
-                          <span className={`truncate ${cardTheme === "light" ? "text-slate-600" : "text-slate-300"}`}>
+                          <span
+                            className={
+                              cardTheme === "light"
+                                ? "text-orange-700"
+                                : "text-amber-400"
+                            }
+                          >
+                            📍
+                          </span>
+                          <span
+                            className={`truncate ${cardTheme === "light" ? "text-slate-600" : "text-slate-300"}`}
+                          >
                             {location || "Mayfair, London"}
                           </span>
                         </div>
                         <div className="flex items-center gap-2 text-xs">
-                          <span className={cardTheme === "light" ? "text-orange-700" : "text-amber-400"}>✉️</span>
-                          <span className={`truncate ${cardTheme === "light" ? "text-slate-600" : "text-slate-300"}`}>
+                          <span
+                            className={
+                              cardTheme === "light"
+                                ? "text-orange-700"
+                                : "text-amber-400"
+                            }
+                          >
+                            ✉️
+                          </span>
+                          <span
+                            className={`truncate ${cardTheme === "light" ? "text-slate-600" : "text-slate-300"}`}
+                          >
                             {email || "sterling@executive.com"}
                           </span>
                         </div>
@@ -857,7 +877,9 @@ export default function GeneratorForm() {
                       <span className="text-[10px] font-bold tracking-wider uppercase text-gray-500">
                         Pure AI Art
                       </span>
-                      <span className={`text-[8px] mt-1 ${cardTheme === "light" ? "text-slate-400" : "text-slate-500"}`}>
+                      <span
+                        className={`text-[8px] mt-1 ${cardTheme === "light" ? "text-slate-400" : "text-slate-500"}`}
+                      >
                         Unobstructed
                       </span>
                     </div>
@@ -883,7 +905,10 @@ export default function GeneratorForm() {
                             <div
                               key={i}
                               className={`w-2 h-2 rounded-[1px] ${
-                                i % 3 === 0 || i % 7 === 0 || i < 6 || (i > 42 && i % 2 === 0)
+                                i % 3 === 0 ||
+                                i % 7 === 0 ||
+                                i < 6 ||
+                                (i > 42 && i % 2 === 0)
                                   ? cardTheme === "light"
                                     ? "bg-slate-900"
                                     : "bg-white"

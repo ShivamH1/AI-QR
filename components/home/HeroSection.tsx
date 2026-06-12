@@ -7,10 +7,13 @@ const PREVIEW_CARDS = [
   {
     label: "Neon Cyberpunk",
     tag: "AI QR Code",
-    gradient: "linear-gradient(135deg, rgba(124,58,237,0.35) 0%, rgba(236,72,153,0.2) 50%, rgba(6,182,214,0.3) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(124,58,237,0.35) 0%, rgba(236,72,153,0.2) 50%, rgba(6,182,214,0.3) 100%)",
     borderColor: "rgba(124,58,237,0.25)",
     icon: "🌃",
-    modules: [1,0,1,1,0,1,1,0,0,1,1,0,1,0,1,0,1,1,0,1,0,0,1,1,1],
+    modules: [
+      1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1,
+    ],
     moduleColor: "#a78bfa",
     accentColor: "#a78bfa",
     description: "AI-generated artwork blended with scannable QR",
@@ -18,10 +21,13 @@ const PREVIEW_CARDS = [
   {
     label: "Enchanted Forest",
     tag: "AI QR Code",
-    gradient: "linear-gradient(135deg, rgba(16,185,129,0.3) 0%, rgba(20,184,166,0.2) 50%, rgba(132,204,22,0.2) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(16,185,129,0.3) 0%, rgba(20,184,166,0.2) 50%, rgba(132,204,22,0.2) 100%)",
     borderColor: "rgba(16,185,129,0.25)",
     icon: "🍄",
-    modules: [1,1,0,1,0,0,1,1,1,0,1,0,0,1,0,1,0,1,1,0,1,1,0,0,1],
+    modules: [
+      1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1,
+    ],
     moduleColor: "#34d399",
     accentColor: "#34d399",
     description: "AI-generated artwork blended with scannable QR",
@@ -29,10 +35,13 @@ const PREVIEW_CARDS = [
   {
     label: "Professional ID",
     tag: "Digital Card",
-    gradient: "linear-gradient(135deg, rgba(245,158,11,0.3) 0%, rgba(249,115,22,0.2) 50%, rgba(234,179,8,0.2) 100%)",
+    gradient:
+      "linear-gradient(135deg, rgba(245,158,11,0.3) 0%, rgba(249,115,22,0.2) 50%, rgba(234,179,8,0.2) 100%)",
     borderColor: "rgba(245,158,11,0.25)",
     icon: "💼",
-    modules: [1,0,1,0,1,1,0,1,0,1,1,1,0,0,1,0,1,0,1,1,0,1,0,1,1],
+    modules: [
+      1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1,
+    ],
     moduleColor: "#fbbf24",
     accentColor: "#fbbf24",
     description: "Digital contact cards with embedded QR",
@@ -40,7 +49,6 @@ const PREVIEW_CARDS = [
 ];
 
 export default function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -52,14 +60,20 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-32 pb-24 overflow-hidden"
-    >
+    <div className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-32 pb-24 overflow-hidden">
       {/* Background orbs */}
-      <div className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none" style={{ background: "rgba(124,58,237,0.12)" }} />
-      <div className="absolute bottom-[10%] right-[10%] w-[450px] h-[450px] rounded-full blur-[120px] pointer-events-none" style={{ background: "rgba(6,182,214,0.08)" }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full blur-[100px] pointer-events-none" style={{ background: "rgba(236,72,153,0.06)" }} />
+      <div
+        className="absolute top-[15%] left-[10%] w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none"
+        style={{ background: "rgba(124,58,237,0.12)" }}
+      />
+      <div
+        className="absolute bottom-[10%] right-[10%] w-[450px] h-[450px] rounded-full blur-[120px] pointer-events-none"
+        style={{ background: "rgba(6,182,214,0.08)" }}
+      />
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full blur-[100px] pointer-events-none"
+        style={{ background: "rgba(236,72,153,0.06)" }}
+      />
 
       {/* Badge */}
       <div
@@ -101,7 +115,8 @@ export default function HeroSection() {
           transition: "opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s",
         }}
       >
-        Enter any URL and a visual theme. AI transforms it into a scannable work of art.
+        Enter any URL and a visual theme. AI transforms it into a scannable work
+        of art.
       </p>
 
       {/* ── Three Preview Cards ── */}
@@ -116,9 +131,10 @@ export default function HeroSection() {
               background: card.gradient,
               border: `1px solid ${card.borderColor}`,
               backdropFilter: "blur(12px)",
-              boxShadow: hoveredCard === idx
-                ? `0 20px 60px -15px rgba(0,0,0,0.4), 0 0 40px ${card.accentColor}15`
-                : "0 10px 40px -15px rgba(0,0,0,0.3)",
+              boxShadow:
+                hoveredCard === idx
+                  ? `0 20px 60px -15px rgba(0,0,0,0.4), 0 0 40px ${card.accentColor}15`
+                  : "0 10px 40px -15px rgba(0,0,0,0.3)",
               transform: visible
                 ? hoveredCard === idx
                   ? "translateY(-6px) scale(1.03)"
@@ -129,7 +145,13 @@ export default function HeroSection() {
             }}
           >
             {/* Subtle inner glow */}
-            <div className="absolute inset-0 rounded-3xl pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)" }} />
+            <div
+              className="absolute inset-0 rounded-3xl pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)",
+              }}
+            />
 
             {/* Tag */}
             <span
@@ -150,11 +172,21 @@ export default function HeroSection() {
               style={{
                 background: "rgba(0,0,0,0.25)",
                 border: "1px solid rgba(255,255,255,0.08)",
-                boxShadow: hoveredCard === idx ? `0 0 30px ${card.accentColor}20` : "none",
+                boxShadow:
+                  hoveredCard === idx
+                    ? `0 0 30px ${card.accentColor}20`
+                    : "none",
                 transition: "box-shadow 0.4s ease",
               }}
             >
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "5px", padding: "12px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(5, 1fr)",
+                  gap: "5px",
+                  padding: "12px",
+                }}
+              >
                 {card.modules.map((m, i) => (
                   <div
                     key={i}
@@ -162,7 +194,9 @@ export default function HeroSection() {
                       width: "16px",
                       height: "16px",
                       borderRadius: "3px",
-                      background: m ? card.moduleColor : "rgba(255,255,255,0.04)",
+                      background: m
+                        ? card.moduleColor
+                        : "rgba(255,255,255,0.04)",
                       opacity: m ? (hoveredCard === idx ? 1 : 0.75) : 1,
                       transition: "opacity 0.4s ease",
                     }}
@@ -219,8 +253,18 @@ export default function HeroSection() {
         }}
       >
         <span className="text-sm tracking-wide">Start generating below</span>
-        <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        <svg
+          className="w-5 h-5 animate-bounce"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </div>
     </div>

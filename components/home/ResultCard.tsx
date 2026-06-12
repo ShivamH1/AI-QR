@@ -12,14 +12,18 @@ interface ResultCardProps {
   theme: string;
 }
 
-export default function ResultCard({ result, originalUrl, theme }: ResultCardProps) {
+export default function ResultCard({
+  result,
+  originalUrl,
+  theme,
+}: ResultCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isCard = !!result.cardDetails;
 
   useGSAP(
     () => {
       const tl = gsap.timeline();
-      
+
       // Initialize states explicitly to ensure robust rendering in dev double-mounts
       gsap.set(cardRef.current, { opacity: 0, scale: 0.85, y: 40 });
       gsap.set(".result-image-wrap", { opacity: 0 });
@@ -35,25 +39,40 @@ export default function ResultCard({ result, originalUrl, theme }: ResultCardPro
         .to(
           ".result-image-wrap",
           { opacity: 1, duration: 0.8, ease: "power2.out" },
-          "-=0.4"
+          "-=0.4",
         )
         .to(
           ".result-meta",
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" },
-          "-=0.6"
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+          },
+          "-=0.6",
         );
     },
-    { scope: cardRef, dependencies: [result] }
+    { scope: cardRef, dependencies: [result] },
   );
 
   return (
-    <div ref={cardRef} className={`w-full flex flex-col items-center ${isCard ? "max-w-[320px]" : "max-w-[480px]"}`}>
+    <div
+      ref={cardRef}
+      className={`w-full flex flex-col items-center ${isCard ? "max-w-[320px]" : "max-w-[480px]"}`}
+    >
       {/* Dynamic Aspect Ratio Image Wrapper */}
-      <div className={`result-image-wrap relative w-full rounded-2xl overflow-hidden shadow-2xl border border-white/[0.08] transition-all ${isCard ? "aspect-[9/16]" : "aspect-[16/9]"}`}>
+      <div
+        className={`result-image-wrap relative w-full rounded-2xl overflow-hidden shadow-2xl border border-white/[0.08] transition-all ${isCard ? "aspect-[9/16]" : "aspect-[16/9]"}`}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={result.imageData}
-          alt={isCard ? `AI Digital ID Card for ${result.cardDetails?.name}` : `AI-styled QR code for ${originalUrl}`}
+          alt={
+            isCard
+              ? `AI Digital ID Card for ${result.cardDetails?.name}`
+              : `AI-styled QR code for ${originalUrl}`
+          }
           className="w-full h-full object-cover"
         />
       </div>
@@ -64,7 +83,9 @@ export default function ResultCard({ result, originalUrl, theme }: ResultCardPro
         {!isCard && (
           <div className="result-meta flex items-center justify-between text-xs text-gray-400 px-1">
             <span className="truncate max-w-[140px]">🔗 {originalUrl}</span>
-            <span className="truncate max-w-[100px] text-right">🎨 {theme}</span>
+            <span className="truncate max-w-[100px] text-right">
+              🎨 {theme}
+            </span>
           </div>
         )}
 
@@ -83,13 +104,25 @@ export default function ResultCard({ result, originalUrl, theme }: ResultCardPro
           {/* Primary: Combined Card */}
           <DownloadButton
             imageData={result.imageData}
-            filename={isCard 
-              ? `digital-id-${result.cardDetails?.name.replace(/\s+/g, "-").toLowerCase()}` 
-              : `ai-qr-card-${theme.replace(/\s+/g, "-").toLowerCase()}`}
+            filename={
+              isCard
+                ? `digital-id-${result.cardDetails?.name.replace(/\s+/g, "-").toLowerCase()}`
+                : `ai-qr-card-${theme.replace(/\s+/g, "-").toLowerCase()}`
+            }
             className="w-full justify-center bg-gradient-to-r from-brand-purple to-brand-cyan hover:opacity-90 border-none text-white text-xs py-3 rounded-xl font-semibold shadow-md shadow-brand-purple/10"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            <svg
+              className="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
             </svg>
             Download Combined Card
           </DownloadButton>
@@ -116,19 +149,31 @@ export default function ResultCard({ result, originalUrl, theme }: ResultCardPro
             )}
           </div>
 
-          {originalUrl && originalUrl !== "Contact Card" && !originalUrl.endsWith("(Contact Card)") && (
-            <a
-              href={originalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 border border-white/[0.08] hover:border-white/15 text-gray-300 hover:text-white font-medium py-3 rounded-xl transition-colors text-xs"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-              Test Link
-            </a>
-          )}
+          {originalUrl &&
+            originalUrl !== "Contact Card" &&
+            !originalUrl.endsWith("(Contact Card)") && (
+              <a
+                href={originalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5 border border-white/[0.08] hover:border-white/15 text-gray-300 hover:text-white font-medium py-3 rounded-xl transition-colors text-xs"
+              >
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+                Test Link
+              </a>
+            )}
         </div>
       </div>
     </div>

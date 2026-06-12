@@ -12,7 +12,7 @@ interface RenderCardParams {
 
 interface RenderSimpleParams {
   artworkBase64: string; // The base64 data URI of the pure AI art
-  qrBase64: string;      // The base64 data URI of the composite QR code
+  qrBase64: string; // The base64 data URI of the composite QR code
   theme: "light" | "dark";
 }
 
@@ -20,12 +20,18 @@ interface RenderSimpleParams {
 const escapeXml = (unsafe: string) => {
   return unsafe.replace(/[<>&'"]/g, (c) => {
     switch (c) {
-      case '<': return '&lt;';
-      case '>': return '&gt;';
-      case '&': return '&amp;';
-      case '\'': return '&apos;';
-      case '"': return '&quot;';
-      default: return c;
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case "&":
+        return "&amp;";
+      case "'":
+        return "&apos;";
+      case '"':
+        return "&quot;";
+      default:
+        return c;
     }
   });
 };
@@ -33,8 +39,18 @@ const escapeXml = (unsafe: string) => {
 /**
  * Renders a high-fidelity vertical 9:16 Digital ID Card (540x960).
  */
-export async function renderCardImage(params: RenderCardParams): Promise<Buffer> {
-  const { name, title = "", company = "", location = "", email = "", theme, qrBase64 } = params;
+export async function renderCardImage(
+  params: RenderCardParams,
+): Promise<Buffer> {
+  const {
+    name,
+    title = "",
+    company = "",
+    location = "",
+    email = "",
+    theme,
+    qrBase64,
+  } = params;
   const width = 540;
   const height = 960;
 
@@ -44,8 +60,9 @@ export async function renderCardImage(params: RenderCardParams): Promise<Buffer>
   const cleanLocation = escapeXml(location);
   const cleanEmail = escapeXml(email);
 
-  const svg = theme === "dark" 
-    ? `
+  const svg =
+    theme === "dark"
+      ? `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="darkBg" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -73,25 +90,33 @@ export async function renderCardImage(params: RenderCardParams): Promise<Buffer>
         <text x="270" y="415" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#fbbf24" letter-spacing="3" text-anchor="middle">AUTHENTIC DIGITAL ID</text>
         <line x1="25" y1="445" x2="515" y2="445" stroke="#1e293b" stroke-width="1" />
 
-        ${cleanCompany ? `<text x="50" y="490" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#fbbf24" letter-spacing="1.5">${cleanCompany.toUpperCase()}</text>` : ''}
+        ${cleanCompany ? `<text x="50" y="490" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#fbbf24" letter-spacing="1.5">${cleanCompany.toUpperCase()}</text>` : ""}
         <text x="50" y="535" font-family="Georgia, serif" font-size="32" font-weight="bold" fill="#f8fafc">${cleanName}</text>
-        ${cleanTitle ? `<text x="50" y="575" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-style="italic" fill="#94a3b8">${cleanTitle}</text>` : ''}
+        ${cleanTitle ? `<text x="50" y="575" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-style="italic" fill="#94a3b8">${cleanTitle}</text>` : ""}
         
         <line x1="50" y1="605" x2="110" y2="605" stroke="#334155" stroke-width="2" />
 
-        ${cleanLocation ? `
+        ${
+          cleanLocation
+            ? `
         <g transform="translate(50, 632) scale(0.95)" opacity="0.9">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#fbbf24" />
         </g>
         <text x="82" y="650" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#cbd5e1" font-weight="500">${cleanLocation}</text>
-        ` : ''}
+        `
+            : ""
+        }
 
-        ${cleanEmail ? `
+        ${
+          cleanEmail
+            ? `
         <g transform="translate(50, 680) scale(0.95)" opacity="0.9">
           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#fbbf24" />
         </g>
         <text x="82" y="698" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#cbd5e1" font-weight="500">${cleanEmail}</text>
-        ` : ''}
+        `
+            : ""
+        }
 
         <rect x="50" y="760" width="440" height="70" rx="35" ry="35" fill="#042f2e" stroke="#115e59" stroke-width="1.5" />
         <g transform="translate(160, 783) scale(1.05)">
@@ -104,7 +129,7 @@ export async function renderCardImage(params: RenderCardParams): Promise<Buffer>
         <image href="${qrBase64}" x="135" y="90" width="270" height="270" rx="10" ry="10" />
       </svg>
     `
-    : `
+      : `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="lightBg" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -127,25 +152,33 @@ export async function renderCardImage(params: RenderCardParams): Promise<Buffer>
         <text x="270" y="415" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#854d0e" letter-spacing="3" text-anchor="middle">AUTHENTIC DIGITAL ID</text>
         <line x1="25" y1="445" x2="515" y2="445" stroke="#f1f5f9" stroke-width="1" />
 
-        ${cleanCompany ? `<text x="50" y="490" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#b45309" letter-spacing="1.5">${cleanCompany.toUpperCase()}</text>` : ''}
+        ${cleanCompany ? `<text x="50" y="490" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#b45309" letter-spacing="1.5">${cleanCompany.toUpperCase()}</text>` : ""}
         <text x="50" y="535" font-family="Georgia, serif" font-size="32" font-weight="bold" fill="#0f172a">${cleanName}</text>
-        ${cleanTitle ? `<text x="50" y="575" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-style="italic" fill="#475569">${cleanTitle}</text>` : ''}
+        ${cleanTitle ? `<text x="50" y="575" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="19" font-style="italic" fill="#475569">${cleanTitle}</text>` : ""}
         
         <line x1="50" y1="605" x2="110" y2="605" stroke="#cbd5e1" stroke-width="2" />
 
-        ${cleanLocation ? `
+        ${
+          cleanLocation
+            ? `
         <g transform="translate(50, 632) scale(0.95)" opacity="0.9">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#9a3412" />
         </g>
         <text x="82" y="650" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#334155" font-weight="500">${cleanLocation}</text>
-        ` : ''}
+        `
+            : ""
+        }
 
-        ${cleanEmail ? `
+        ${
+          cleanEmail
+            ? `
         <g transform="translate(50, 680) scale(0.95)" opacity="0.9">
           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#9a3412" />
         </g>
         <text x="82" y="698" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#334155" font-weight="500">${cleanEmail}</text>
-        ` : ''}
+        `
+            : ""
+        }
 
         <rect x="50" y="760" width="440" height="70" rx="35" ry="35" fill="#082f27" />
         <g transform="translate(160, 783) scale(1.05)">
@@ -159,22 +192,23 @@ export async function renderCardImage(params: RenderCardParams): Promise<Buffer>
       </svg>
     `;
 
-  return sharp(Buffer.from(svg))
-    .png()
-    .toBuffer();
+  return sharp(Buffer.from(svg)).png().toBuffer();
 }
 
 /**
  * Renders a beautiful simple landscape card (960x540).
  * Displays pure AI artwork cleanly on the left, and styled composite QR code on the right.
  */
-export async function renderSimpleLandscapeCard(params: RenderSimpleParams): Promise<Buffer> {
+export async function renderSimpleLandscapeCard(
+  params: RenderSimpleParams,
+): Promise<Buffer> {
   const { artworkBase64, qrBase64, theme } = params;
   const width = 960;
   const height = 540;
 
-  const svg = theme === "dark"
-    ? `
+  const svg =
+    theme === "dark"
+      ? `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="darkBg" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -214,7 +248,7 @@ export async function renderSimpleLandscapeCard(params: RenderSimpleParams): Pro
         <text x="735" y="460" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#fbbf24" letter-spacing="4" text-anchor="middle">SCAN STYLED AI QR</text>
       </svg>
     `
-    : `
+      : `
       <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="lightBg" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -250,7 +284,5 @@ export async function renderSimpleLandscapeCard(params: RenderSimpleParams): Pro
       </svg>
     `;
 
-  return sharp(Buffer.from(svg))
-    .png()
-    .toBuffer();
+  return sharp(Buffer.from(svg)).png().toBuffer();
 }

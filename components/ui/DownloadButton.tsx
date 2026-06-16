@@ -29,7 +29,10 @@ export default function DownloadButton({
       // Detect extension from MIME type in data URI header
       const mimeMatch = imageData.match(/^data:([^;]+);/);
       const mime = mimeMatch?.[1] ?? "image/png";
-      const ext = mime === "image/jpeg" || mime === "image/jpg" ? "jpg" : "png";
+      const ext =
+        mime === "image/jpeg" || mime === "image/jpg" ? "jpg"
+        : mime === "image/svg+xml" ? "svg"
+        : "png";
       const finalFilename = `${baseName}.${ext}`;
 
       // fetch() natively handles data URIs and produces a correctly-typed Blob

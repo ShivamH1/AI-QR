@@ -1,5 +1,3 @@
-import sharp from "sharp";
-
 interface RenderCardParams {
   name: string;
   title?: string;
@@ -192,7 +190,7 @@ export async function renderCardImage(
       </svg>
     `;
 
-  return sharp(Buffer.from(svg)).png().toBuffer();
+  return Buffer.from(svg.trim());
 }
 
 /**
@@ -284,5 +282,5 @@ export async function renderSimpleLandscapeCard(
       </svg>
     `;
 
-  return sharp(Buffer.from(svg)).png().toBuffer();
+  return Buffer.from(svg.trim());
 }

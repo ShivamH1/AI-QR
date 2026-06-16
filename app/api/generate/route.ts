@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
         theme: cardTheme,
         qrBase64,
       });
-      const imageData = `data:image/png;base64,${cardBuffer.toString("base64")}`;
+      const imageData = `data:image/svg+xml;base64,${cardBuffer.toString("base64")}`;
 
       return Response.json({
         imageData,
@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
       qrBase64,
       theme: cardTheme,
     });
-    const imageData = `data:image/png;base64,${landscapeBuffer.toString("base64")}`;
+    const imageData = `data:image/svg+xml;base64,${landscapeBuffer.toString("base64")}`;
 
     return Response.json({
       imageData,
